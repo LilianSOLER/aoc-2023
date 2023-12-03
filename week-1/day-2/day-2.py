@@ -15,19 +15,14 @@ def is_valid_game(game: str, condition: dict[str, int] = None) -> int:
 
     games = game_info[1].split(";")
     for game in games:
-        cubes_dict = {}
-        cubes = game.strip().split(",")
-        for cube in cubes:
-            cube_info = cube.strip().split(" ")
-            cubes_dict[cube_info[1]] = int(cube_info[0])
+        cubes_dict = {cube_info[1]: int(cube_info[0]) for cube in game.strip().split(",") for cube_info in
+                      [cube.strip().split(" ")]}
 
-        for key in cubes_dict.keys():
-            if key not in condition.keys():
-                return 0
+        if not set(cubes_dict.keys()).issubset(condition.keys()):
+            return 0
 
-        for key in cubes_dict.keys():
-            if cubes_dict[key] > condition[key]:
-                return 0
+        if any(cubes_dict[key] > condition[key] for key in cubes_dict):
+            return 0
 
     return game_id
 
