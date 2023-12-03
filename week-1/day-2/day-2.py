@@ -1,12 +1,18 @@
 from typing import List
 
+from utils import main
+
 
 def read_file(file_path: str) -> List[str]:
     with open(file_path, "r") as file:
         return file.readlines()
 
 
-def is_valid_game(game: str, condition: dict[str, int] = None) -> int:
+def is_valid_game(game: str) -> int:
+    return is_valid_game_aux(game, {"red": 12, "green": 13, "blue": 14})
+
+
+def is_valid_game_aux(game: str, condition: dict[str, int] = None) -> int:
     if condition is None:
         condition = {"red": 0, "green": 0, "blue": 0}
 
@@ -37,21 +43,6 @@ def min_cond_to_win(game: str) -> int:
     return condition["red"] * condition["green"] * condition["blue"]
 
 
-def part_1(content: List[str]) -> int:
-    conditions = {"red": 12, "green": 13, "blue": 14}
-    return sum([is_valid_game(game, conditions) if game else 0 for game in content])
-
-
-def part_2(content: List[str]) -> int:
-    return sum([min_cond_to_win(game) for game in content])
-
-
-def main(file_path: str) -> None:
-    content: List[str] = read_file(file_path)
-    print(f"Part 1: {part_1(content)}")
-    print(f"Part 2: {part_2(content)}")
-
-
 if __name__ == "__main__":
     file_path = "data/day-2.txt"
-    main(file_path)
+    main(file_path, is_valid_game, min_cond_to_win)

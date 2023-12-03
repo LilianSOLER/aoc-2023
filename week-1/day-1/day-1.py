@@ -1,9 +1,6 @@
 from typing import List, Tuple
 
-
-def read_file(file_path: str) -> List[str]:
-    with open(file_path, "r") as file:
-        return file.readlines()
+from utils import find_all, main
 
 
 def get_first_and_last_digit(s: str) -> int:
@@ -13,21 +10,11 @@ def get_first_and_last_digit(s: str) -> int:
     return int(str(digits[0]) + str(digits[-1]))
 
 
-def find_all(s, word):
-    indexes = []
-    index = s.find(word)
-    while index != -1:
-        indexes.append(index)
-        index = s.find(word, index + 1)
-
-    return indexes
-
-
 def get_first_and_last_digit_v2(s: str) -> int:
     number_mapping = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
     all_indexes: List[Tuple[int, int]] = []
-    
+
     for index, word in enumerate(number_mapping):
         indexes = find_all(s, word)
         if indexes:
@@ -43,20 +30,6 @@ def get_first_and_last_digit_v2(s: str) -> int:
     return get_first_and_last_digit(s)
 
 
-def part_1(content: List[str]) -> int:
-    return sum([get_first_and_last_digit(line) for line in content])
-
-
-def part_2(content: List[str]) -> int:
-    return sum([get_first_and_last_digit_v2(line) for line in content])
-
-
-def main(file_path: str) -> None:
-    content: List[str] = read_file(file_path)
-    print(f"Part 1: {part_1(content)}")
-    print(f"Part 2: {part_2(content)}")
-
-
 if __name__ == "__main__":
     file_path = "data/day-1.txt"
-    main(file_path)
+    main(file_path, get_first_and_last_digit, get_first_and_last_digit_v2)
