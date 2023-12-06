@@ -24,7 +24,7 @@ def test():
 
 
 if __name__ == "__main__":
-    file_path = "data/day-6.txt"
+    file_path = "data/day-6-p2.txt"
     # file_path = "data/example.txt"
     test()
     main(file_path, number_of_way_to_win, number_of_way_to_win, do_sum=False)
